@@ -58,34 +58,34 @@
         <legend>Error Calculator</legend>
         <input name="first-num" id="first-num" />
         <select name="operator" id="operator">
-          <option>+</option>
-          <option>-</option>
-          <option>*</option>
-          <option>/</option>
+          <option id="plus">+</option>
+          <option id="minus">-</option>
+          <option id="multiply">*</option>
+          <option id="divide">/</option>
         </select>
         <input name="second-num" id="second-num" />
-        <button id="calculate">Calculate</button>
+        <!-- <button id="calculate">Calculate</button> -->
         <br />
         <output></output>
       </fieldset>
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="log">Console Log</button>
+      <button id="error">Console Error</button>
+      <button id="count">Console Count</button>
+      <button id="warn">Console Warn</button>
+      <button id="assert">Console Assert</button>
+      <button id="clear">Console Clear</button>
+      <button id="dir">Console Dir</button>
+      <button id="dirxml">Console dirxml</button>
+      <button id="group-start">Console Group Start</button>
+      <button id="group-end">Console Group End</button>
+      <button id="table">Console Table</button>
+      <button id="start-timer">Start Timer</button>
+      <button id="end-timer">End Timer</button>
+      <button id="trace">Console Trace</button>
+      <button id="global-error">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -104,6 +104,117 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let element;
+    element = document.getElementById("log");
+    element.addEventListener("click", function() {
+      console.log("console log button");
+    });
+
+    element = document.getElementById("error");
+    element.addEventListener("click", function() {
+      console.error("You made a mistake!");
+    });
+
+    element = document.getElementById("count");
+    element.addEventListener("click", function() {
+      for (let i = 0; i < 5; i++) {
+        console.count();
+      }
+    });
+
+    element = document.getElementById("warn");
+    element.addEventListener("click", function() {
+      console.warn("This is a warning!");
+    });
+
+    element = document.getElementById("assert");
+    element.addEventListener("click", function() {
+      console.count(document.getElementById("first-num") == 5, "Expression returned false");
+    });
+
+    element = document.getElementById("clear");
+    element.addEventListener("click", function() {
+      console.clear();
+    });
+
+    element = document.getElementById("dir");
+    element.addEventListener("click", function() {
+      console.dir(document.location);
+    });
+
+    element = document.getElementById("dirxml");
+    element.addEventListener("click", function() {
+      console.dirxml(document.getElementById("first-num"));
+    });
+    
+    element = document.getElementById("group-start");
+    element.addEventListener("click", function() {
+      console.group();
+      console.log("This is indented");
+    });
+
+    element = document.getElementById("group-end");
+    element.addEventListener("click", function() {
+      console.groupEnd();
+    });
+
+    element = document.getElementById("table");
+    element.addEventListener("click", function() {
+      const num1 = {name:"number 1", model:"entry 1"}
+      const num2 = {name:"number 2", model:"entry 2"}
+      const num3 = {name:"number 3", model:"entry 3"}
+      console.table([num1, num2, num3]);
+    });
+
+    element = document.getElementById("start-timer");
+    element.addEventListener("click", function() {
+      console.time();
+    });
+
+    element = document.getElementById("end-timer");
+    element.addEventListener("click", function() {
+      console.timeEnd();
+    });
+
+    element = document.getElementById("trace");
+    element.addEventListener("click", function() {
+      console.trace();
+    });
+
+    // function triggerError() {
+    //   throw new Error('Oh no!');
+    // }
+
+    element = document.getElementById("global-error");
+    element.addEventListener("click", function() {
+      window.onerror = function (message, source, lineno) {
+        console.log("Global error: " + error.message + ", lineno: " + lineno);
+      };
+      console.log(window.onerror);
+    });
+
+    triggerError();
+    
+    // try, catch, final, and throw
+    function throwAnError() {
+      throw new Error('Cannot find calculate button');
+    }
+    try {
+      if(document.getElementById("calculate") == null)
+        throwAnError();
+      let result = document.getElementById("calculate");
+      result.addEventListener("click", function() {
+        if (document.getElementById("operator").value == "/") {
+          if (document.getElementById("second-num").value == "0")
+          return false;
+        }
+      });
+      
+    } catch(err){
+      console.error(err);
+    } finally {
+      console.log("Always execute");
+    }
   </script>
 </body>
 
