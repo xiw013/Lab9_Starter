@@ -89,6 +89,16 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "280d1975fa3a422484a98c306e5af852"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    TrackJS.track('Testing TrackJS!');
+  </script>
+                        
+
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -104,6 +114,7 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
     let element;
     element = document.getElementById("log");
     element.addEventListener("click", function() {
@@ -181,19 +192,19 @@
       console.trace();
     });
 
-    // function triggerError() {
-    //   throw new Error('Oh no!');
-    // }
+    window.onerror = function (message, source, lineno) {
+        console.log("Global error: " + message + ", lineno: " + lineno);
+    };
+
+    // window.addEventListener("error", (event) => {
+    //   log.textContent = `${log.textContent}${event.type}: ${event.message}\n`;
+    //   console.log(event);
+    // });
 
     element = document.getElementById("global-error");
     element.addEventListener("click", function() {
-      window.onerror = function (message, source, lineno) {
-        console.log("Global error: " + error.message + ", lineno: " + lineno);
-      };
-      console.log(window.onerror);
+      triggerError();
     });
-
-    triggerError();
     
     // try, catch, final, and throw
     function throwAnError() {
